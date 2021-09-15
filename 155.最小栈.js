@@ -24,3 +24,48 @@ minStack.pop();
 minStack.top();      --> 返回 0.
 minStack.getMin();   --> 返回 -2.
  */
+
+
+// 在常数时间内检索到最小元素的栈，即仅需保证 getMin 的时间复杂度为 O(1) 即可
+var MinStack = function () {
+  this.items = []
+  this.min = null
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+// 进栈
+MinStack.prototype.push = function (val) {
+  if (!this.items.length) this.min = val
+  this.min = Math.min(val, this.min)
+  this.items.push(val)
+};
+
+/**
+ * @return {void}
+ */
+// 出栈
+MinStack.prototype.pop = function () {
+  let num = this.items.pop()
+  this.min = Math.min(...this.items)
+  return num
+};
+
+/**
+ * @return {number}
+ */
+// 获取栈顶元素
+MinStack.prototype.top = function () {
+  if (!this.items.length) return null
+  return this.items[this.items.length - 1]
+};
+
+/**
+ * @return {number}
+ */
+// 检索栈中的最小元素
+MinStack.prototype.getMin = function () {
+  return this.min
+};
